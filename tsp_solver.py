@@ -3,8 +3,9 @@ import time
 from utils.data_loader import read_instance
 from utils.results import get_tour_string
 from formulations.mtz import solve_mtz
-from formulations.dfj import solve_dfj_enum
+from formulations.dfj import solve_dfj_enum, solve_dfj_iter
 
+#TODO Utilisez des structures de données efficaces (dictionnaires Python) pour représenter les graphes
 
 def main():
     if len(sys.argv) < 3:
@@ -31,8 +32,9 @@ def main():
         pass
         #val, tour, time_taken, x = solve_dfj_enum(n, dist_matrix, relax=True)
     elif method_flag == 4:
-        pass
-        #val, tour, time_taken, iterations = solve_dfj_iter(n, dist_matrix)
+        val, x, time_taken, iterations = solve_dfj_iter(n, dist_matrix)
+        print(f"Cycle: {get_tour_string(n, x)}")
+        print(f"Iterations: {iterations}")
 
 
     print(f"Objective: {val}")
