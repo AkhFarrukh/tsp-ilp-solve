@@ -3,6 +3,7 @@ import time
 from utils.data_loader import read_instance
 from utils.results import get_tour_string
 from formulations.mtz import solve_mtz
+from formulations.dfj import solve_dfj_enum
 
 
 def main():
@@ -24,8 +25,8 @@ def main():
         pass
         #val, tour, time_taken, x = solve_mtz(n, dist_matrix, relax=True)
     elif method_flag == 2:
-        pass
-        #val, tour, time_taken, x = solve_dfj_enum(n, dist_matrix, relax=False)
+        val, x, time_taken = solve_dfj_enum(n, dist_matrix, relax=False)
+        print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 3:
         pass
         #val, tour, time_taken, x = solve_dfj_enum(n, dist_matrix, relax=True)
