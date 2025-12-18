@@ -8,11 +8,19 @@ def create_base_prob(n, dist_matrix, relax=False):
     # Create the model
     prob = LpProblem("Traveling_Salesman_Problem", LpMinimize)
 
+    if relax:
+        var_type = 'Continuous'
+    else:
+        var_type = 'Binary'
+
+
     # Create variables
     # x[i,j] = 1 if we go from city i to city j, 0 otherwise
     x = LpVariable.dicts("edge",
                          ((i, j) for i in range(n) for j in range(n) if i != j),
-                         cat='Binary')
+                         lowBound=0,
+                         upBound=1,
+                         cat=var_type)
 
 
 

@@ -7,12 +7,17 @@ def solve_mtz(n, dist_matrix, relax=False):
 
     prob, x = create_base_prob(n, dist_matrix, relax)
 
+    if relax:
+        var_type = 'Continuous'
+    else:
+        var_type = 'Integer'
+
     # u[i] = position of city i in the tour (1 to n)
     u = LpVariable.dicts("rank",
                          range(n),
                          lowBound=1,
                          upBound=n,
-                         cat='Integer')
+                         cat=var_type)
 
     # Fix u[0] = 1
     prob += u[0] == 1
