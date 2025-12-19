@@ -24,13 +24,13 @@ def main():
         print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 1:
         val, x, time_taken = solve_mtz(n, dist_matrix, relax=True)
-        print(f"Cycle: {get_tour_string(n, x)}")
+        #print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 2:
         val, x, time_taken = solve_dfj_enum(n, dist_matrix, relax=False)
         print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 3:
         val, x, time_taken = solve_dfj_enum(n, dist_matrix, relax=True)
-        print(f"Cycle: {get_tour_string(n, x)}")
+        #print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 4:
         val, x, time_taken, iterations = solve_dfj_iter(n, dist_matrix)
         print(f"Cycle: {get_tour_string(n, x)}")
