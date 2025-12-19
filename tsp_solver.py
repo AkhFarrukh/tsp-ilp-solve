@@ -17,29 +17,34 @@ def main():
 
     n, coords, dist_matrix = read_instance(filename)
 
+    val = 0
+    time_taken = 0
+    iterations = None
+
     # Select Method
     # f=0: MTZ, f=1: MTZ Relax, f=2: DFJ Enum, f=3: DFJ Enum Relax, f=4: DFJ Iter
     if method_flag == 0:
-        val, x, time_taken = solve_mtz(n, dist_matrix, relax=False)
+        val, x, _, time_taken = solve_mtz(n, dist_matrix, relax=False)
         print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 1:
-        val, x, time_taken = solve_mtz(n, dist_matrix, relax=True)
+        val, x, _, time_taken = solve_mtz(n, dist_matrix, relax=True)
         #print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 2:
-        val, x, time_taken = solve_dfj_enum(n, dist_matrix, relax=False)
+        val, x, _, time_taken = solve_dfj_enum(n, dist_matrix, relax=False)
         print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 3:
-        val, x, time_taken = solve_dfj_enum(n, dist_matrix, relax=True)
+        val, x, _, time_taken = solve_dfj_enum(n, dist_matrix, relax=True)
         #print(f"Cycle: {get_tour_string(n, x)}")
     elif method_flag == 4:
-        val, x, time_taken, iterations = solve_dfj_iter(n, dist_matrix)
+        val, x, _, time_taken, iterations = solve_dfj_iter(n, dist_matrix)
         print(f"Cycle: {get_tour_string(n, x)}")
-        print(f"Iterations: {iterations}")
+
 
 
     print(f"Objective: {val}")
     print(f"Time: {time_taken}")
-
+    if iterations is not None:
+        print(f"Iterations: {iterations}")
 
 if __name__ == "__main__":
     main()

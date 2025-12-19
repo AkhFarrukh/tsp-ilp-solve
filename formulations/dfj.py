@@ -18,7 +18,6 @@ def generate_subsets(n):
 
 
 def solve_dfj_enum(n, dist_matrix, relax=False):
-    """Pour n<=10 seulement."""
 
     prob, x = create_base_prob(n, dist_matrix, relax)
     subsets = generate_subsets(n)
@@ -37,7 +36,7 @@ def solve_dfj_enum(n, dist_matrix, relax=False):
     prob.solve()
     end_time = time.time()
 
-    return value(prob.objective), x, (end_time - start_time)
+    return value(prob.objective), x, prob, (end_time - start_time)
 
 
 def find_subtours(n, active_edges):
@@ -109,9 +108,5 @@ def solve_dfj_iter(n, dist_matrix):
                               if i != j) <= len(S) - 1
 
         iterations += 1
-        # TODO remove this break condition after testing
-        if iterations > 1000:
-            print("Max iterations reached!")
-            break
 
-    return value(prob.objective), x, total_solve_time, iterations
+    return value(prob.objective), x, prob, total_solve_time, iterations

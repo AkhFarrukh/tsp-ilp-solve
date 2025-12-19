@@ -34,4 +34,4 @@ def solve_mtz(n, dist_matrix, relax=False):
     prob.solve()
     end_time = time.time()
 
-    return value(prob.objective), x, (end_time - start_time)
+    return value(prob.objective), x, prob, (end_time - start_time)
