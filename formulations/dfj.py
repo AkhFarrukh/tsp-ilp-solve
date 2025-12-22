@@ -110,3 +110,56 @@ def solve_dfj_iter(n, dist_matrix):
 
     return value(prob.objective), x, prob, total_solve_time, iterations
 
+
+
+
+### BONUS TASK ###
+def solve_dfj_iter_bonus(n, dist_matrix):
+    """Variant of the iterative DFJ for bonus task"""
+    prob, x = create_base_prob(n, dist_matrix, relax=False)
+
+    total_solve_time = 0
+    iterations = 0
+
+    while True:
+
+        # Solve
+        t0 = time.time()
+        prob.solve(PULP_CBC_CMD(msg=0))  # Suppress output to keep console clean during loop
+        total_solve_time += (time.time() - t0)
+
+        # Extract Solution
+        solution = []
+        for i in range(n):
+            for j in range(n):
+                if i != j and value(x[i, j]) > 0.9:  # Using 0.9 to avoid floating point issues
+                    solution.append((i, j))
+
+        # Detect Cycles
+        subtours = find_subtours(n, solution)
+
+        # If a unique subtour covering all cities exists
+        if len(subtours) == 1 and len(subtours[0]) == n:
+            break
+
+        # Bonus: If exactly two subtours are found, only add constraint for one of them
+        if len(subtours) == 2:
+            S = subtours[0]
+            prob += lpSum(x[i, j]
+                          for i in S
+                          for j in S
+                          if i != j) <= len(S) - 1
+
+        # Normal case
+        else:
+            # For every subtour found, add the constraint: sum(x_ij) <= |S| - 1
+            for S in subtours:
+                if len(S) < n:
+                    prob += lpSum(x[i, j]
+                                  for i in S
+                                  for j in S
+                                  if i != j) <= len(S) - 1
+
+        iterations += 1
+
+    return value(prob.objective), x, prob, total_solve_time, iterations
