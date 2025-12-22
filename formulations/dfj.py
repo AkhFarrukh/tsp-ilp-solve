@@ -81,8 +81,7 @@ def solve_dfj_iter(n, dist_matrix):
 
         # Solve
         t0 = time.time()
-        # Suppress output to keep console clean during loop
-        prob.solve(PULP_CBC_CMD(msg=0))
+        prob.solve(PULP_CBC_CMD(msg=0)) # Suppress output to keep console clean during loop
         total_solve_time += (time.time() - t0)
 
         # Extract Solution
@@ -110,3 +109,4 @@ def solve_dfj_iter(n, dist_matrix):
         iterations += 1
 
     return value(prob.objective), x, prob, total_solve_time, iterations
+

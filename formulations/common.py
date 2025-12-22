@@ -3,7 +3,6 @@ from pulp import *
 
 def create_base_prob(n, dist_matrix, relax=False):
     """Creates variables, objective, and degree constraints."""
-    #TODO add relax later
 
     # Create the model
     prob = LpProblem("Traveling_Salesman_Problem", LpMinimize)
