@@ -5,7 +5,6 @@ from utils.results import get_tour_string
 from formulations.mtz import solve_mtz
 from formulations.dfj import solve_dfj_enum, solve_dfj_iter
 
-#TODO Utilisez des structures de données efficaces (dictionnaires Python) pour représenter les graphes
 
 def main():
     if len(sys.argv) < 3:

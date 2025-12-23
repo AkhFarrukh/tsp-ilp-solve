@@ -4,7 +4,7 @@ import time
 
 
 def generate_subsets(n):
-    # todo if lagse, use bitmasking
+    """Generates all subsets of the set {0, 1, ..., n-1}."""
     subsets = [[]]
 
     for city in range(n):
@@ -18,7 +18,7 @@ def generate_subsets(n):
 
 
 def solve_dfj_enum(n, dist_matrix, relax=False):
-
+    """Solves the TSP using the DFJ formulation with enumerated subtour elimination constraints."""
     prob, x = create_base_prob(n, dist_matrix, relax)
     subsets = generate_subsets(n)
 
@@ -72,6 +72,7 @@ def find_subtours(n, active_edges):
 
 
 def solve_dfj_iter(n, dist_matrix):
+    """Solves the TSP using the DFJ formulation with iterative subtour elimination constraints."""
     prob, x = create_base_prob(n, dist_matrix, relax=False)
 
     total_solve_time = 0

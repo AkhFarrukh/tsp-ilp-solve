@@ -19,7 +19,7 @@ def solve_mtz(n, dist_matrix, relax=False):
                          upBound=n,
                          cat=var_type)
 
-    # Fix u[0] = 1
+    # Fix u[0] = 1 for the starting city
     prob += u[0] == 1
 
     # Miller-Tucker-Zemlin subtour elimination constraints
@@ -29,7 +29,7 @@ def solve_mtz(n, dist_matrix, relax=False):
             if i != j:
                 prob += u[j] >= u[i] + 1 - n * (1 - x[i, j])
 
-    # 4. Solve and Time
+    # Solve and Time
     start_time = time.time()
     prob.solve()
     end_time = time.time()
